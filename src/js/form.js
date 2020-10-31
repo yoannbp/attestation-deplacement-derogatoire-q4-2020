@@ -14,8 +14,8 @@ const createTitle = () => {
 // createElement('div', { className: 'form-group' })
 
 const getCurrentTime = () => {
-  const date = new Date();
-  return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  const date = new Date()
+  return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
 }
 
 const createFormGroup = ({
@@ -62,6 +62,8 @@ const createFormGroup = ({
 
   if (name === 'heuresortie') {
     input.value = getCurrentTime()
+  } else {
+    input.value = localStorage.getItem(name)
   }
 
   const validityAttrs = {
@@ -95,7 +97,7 @@ const createReasonField = (reasonData) => {
   }
   const inputReason = createElement('input', inputReasonAttrs)
 
-  const labelAttrs = { innerHTML: reasonData.label, className: 'form-checkbox-label', for: id }
+  const labelAttrs = { innerHTML: `<strong>${reasonData.code.toUpperCase()}</strong> - ${reasonData.label}`, className: 'form-checkbox-label', for: id }
   const label = createElement('label', labelAttrs)
 
   appendToReason([inputReason, label])

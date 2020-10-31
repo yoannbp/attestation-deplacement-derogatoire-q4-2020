@@ -71,6 +71,16 @@ export function getProfile (formInputs) {
   return fields
 }
 
+export function saveProfile (formInputs) {
+  for (const field of formInputs) {
+    if (field.id !== 'field-datesortie' && field.id !== 'field-heuresortie') {
+      const name = field.id.substring('field-'.length)
+      const value = field.value
+      localStorage.setItem(name, value)
+    }
+  }
+}
+
 export function getReasons (reasonInputs) {
   const reasons = reasonInputs
     .filter(input => input.checked)
@@ -128,6 +138,7 @@ export function prepareInputs (formInputs, reasonInputs, reasonFieldset, reasonA
     }
 
     console.log(getProfile(formInputs), reasons)
+    saveProfile(formInputs)
 
     const pdfBlob = await generatePdf(getProfile(formInputs), reasons, pdfBase)
 
